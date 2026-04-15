@@ -36,7 +36,7 @@ The dataset to be used for this project: *Human Activity Recognition Using Smart
 
 ## *run_analysis.R* - Description of operation
 
-###Preliminary matters:
+### Preliminary matters:
 
 This description closely follows the in-line commentary to be found in *run_analysis.R*.
 
@@ -47,7 +47,7 @@ This description closely follows the in-line commentary to be found in *run_anal
 5. Create a vector of column headers, adding labels for subject and activity to the head of the vector, that we 
    can use for both the "test" and "train" data sets.
 
-###Import and initial manipulation:
+### Import and initial manipulation:
 
 1. Read in the "test" data set and its ancillary information (subject, activity). Add the subject and activity IDs to the dataframe via cbind().
 2. Name the columns with the vector of column headers created earlier.
@@ -56,7 +56,7 @@ This description closely follows the in-line commentary to be found in *run_anal
 5. Repeat this process for the "train" data set.
 
 
-###Assemble the "test" and "train" data sets into the composite data set.
+### Assemble the "test" and "train" data sets into the composite data set.
 
 1. Use rbind() to connect the data sets head to tail. 
 2. Assign descriptive activity labels, drawn from "activity_labels.txt", using merge().
@@ -66,7 +66,7 @@ This description closely follows the in-line commentary to be found in *run_anal
    the messy column names for improved human readability of the data set:
 5. Do a little housekeeping to free up some RAM.
 
-###Create the requested summary data set.
+### Create the requested summary data set.
 
 *This data set is to contain the means of the variables in the composite data set, grouped by subject and activity.*
 
