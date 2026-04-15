@@ -2,7 +2,7 @@
 
 ## *Avanti!*
 
-##The Brief
+## The Brief
 
 Create one R program which:
 
