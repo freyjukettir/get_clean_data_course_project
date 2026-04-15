@@ -82,6 +82,8 @@ arrangement by subject and activity, and puts the activity_name column on the fa
 
 4. Finish the cleanup by removing the last intermediate from RAM.
 
-###Generate output.
+### Generate output.
 
 1. Write .csv files of both the composite and summary data sets for storage, sharing, and future analysis.
+	1. *composite_data.csv*
+ 	2. *composite_data_summary_means.csv*
