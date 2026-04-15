@@ -29,7 +29,8 @@ activity_labels <- read.csv("./activity_labels.txt", sep = " ", header = FALSE,
 # Next, we'll create a vector of column headers, pre-pending labels for subject 
 # and activity, that we can use for both "test" and "train" data sets.
 header_v <- c("subject", "activity", headers[, 2])
-
+# Identify the columns (variables) that we want to extract from the data set:
+# mean and standard deviation (std) for each feature.
 columns_of_concern <- grep("-mean\\(\\)|-std\\(\\)", header_v)
 
 # Now pull in the "test" data set and its ancillary information.
@@ -95,7 +96,6 @@ composite_data <- composite_data |>
     arrange(subject, activity) |> 
     clean_names()
 
-
 # Now for a little housekeeping to free up some RAM:
 remove(activities_test, activities_train, data_test, 
        data_train, headers, header_v, subjects_test, subjects_train)
@@ -108,7 +108,7 @@ composite_data_summary_means <- composite_data |>
 
 # As we had to lose the activity names in the summary calculation above (can't 
 # calculate a mean on a character variable!), we'll just add them back in now. 
-# First, we need to making the key column name line up with our summary
+# First, we need to make the key column name line up with our summary
 # dataframe:
 names(activity_labels) <- c("activity", "activity_name")
 
@@ -116,9 +116,9 @@ names(activity_labels) <- c("activity", "activity_name")
 composite_data_summary_means <- merge(composite_data_summary_means, activity_labels)
 
 # The merging we just performed has the unfortunate side effect of
-# discombobulating our neat arrangement by subject and activity. So we'll put 
-# activity_name column where we want, rearrange by subject and activity, and
-# and clean up the column names for a nice, human-readable data set:
+# discombobulating our neat arrangement by subject and activity. So we'll put the
+# activity_name column where we want it, rearrange by subject and activity, and
+# clean up the column names for a nice, human-readable data set:
 composite_data_summary_means <- select(composite_data_summary_means, 
                                        2, 1, 69, c(3:68)) |> 
     arrange(subject, activity)
