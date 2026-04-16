@@ -91,7 +91,8 @@ Descriptive variable names are constructed as follows:
 * Component
 	*Body (**body**) or Gravitation (**gravity**)
 * Source of the measurement signal
-	* Accelerometer (**acc**) or Gyroscopic 3-axis (**gyro**) signal
+	* Accelerometer (**acc**), in standard gravitational units (g)
+ 	* Gyroscopic 3-axis (**gyro**) signal, in radians/second
 * Descriptors for calculated/derived measurements
 	* Jerk signals (**jerk**) were derived from the accelerometer and gyroscopic signals with respect to time.
 	* Magnitude (**mag**) of the accelerometer, gyroscopic, and jerk signals was calculated to the Euclidean norm.
