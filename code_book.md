@@ -57,7 +57,7 @@ The data was collected from 30 subjects performing six activities while wearing 
 Per the assignment rubric, variables representing the **mean** and **standard deviation** of measured and calculated quantities were extracted.
 * **Subject:** Integer ID of the volunteer (1–30).
 * **Activity:** Descriptive name of the activity performed.
-* **Features:** 66 variables containing `mean()` or `std()`.
+* **Features:** 66 variables with names containing `mean()` or `std()`.
 
 ---
 
@@ -69,14 +69,14 @@ The following processes were performed via the `run_analysis.R` program:
 	* Standard deviation: variable names containing "std()".
 2. **Addition of subject and activity data:** Subject and activity data combined with the dataframe containing the columns of concern via the cbind() function.
 3. **Assignation of variable names:** Names were assigned to the chosen variables based upon the supplied `features.txt` file.
-4. **Merging of data:** Training and Test sets were combined to create one large data frame via the rbind() function.
+4. **Merging of data:** Training and Test sets were combined to create one large data frame (`composite_data`) via the rbind() function.
 5. **Addition of descriptive activity names:** Numeric activity IDs were supplemented with their corresponding names from `activity_labels.txt`.
 6. **Label cleaning:** Variable names were modified for readability via the `janitor` R package:
     * Parentheses removed
     * Hyphens replaced by underscores
     * Name broken as appropriate with underscores to create a human-readable, yet still compact, variable name; refer to variable name key (vide infra).
 7. **Data set creation:** The data was grouped by subject and activity, and the mean of each variable was calculated.
-	* To enhance human readability, the data were then arranged (as distinct from *grouping* by subject and activity.
+	* To enhance human readability, the data were then arranged (as distinct from *grouping*) by subject and activity.
 	* Both the full composite data set and the calculated summary data set were generated as comma-delimited (.csv) files.
 
 ---
@@ -84,12 +84,13 @@ The following processes were performed via the `run_analysis.R` program:
 
 Descriptive variable names are constructed as follows:
 
-#### *Domain_Component_Source_[descriptors for calculated signal]_Estimator_Axis*
+#### xbar_*Domain_Component_Source_[descriptors for calculated signal]_Estimator_Axis*
 
+* xbar: standardized prefix to indicate that these variables are calculated means of the corresponding variables in the full data set.
 * Domain
-	*Time (**t**) or Frequency (**f**)
+	* Time (**t**) or Frequency (**f**)
 * Component
-	*Body (**body**) or Gravitation (**gravity**)
+	* Body (**body**) or Gravitation (**gravity**)
 * Source of the measurement signal
 	* Accelerometer (**acc**), in standard gravitational units (g)
  	* Gyroscopic 3-axis (**gyro**) signal, in radians/second
@@ -105,97 +106,97 @@ Descriptive variable names are constructed as follows:
 
 ### Examples:
 
- **t_body_acc_mean_x** denotes the mean of the time-domain body component of linear acceleration along the X axis.
- **f_body_acc_jerk_std_z** denotes the standard deviation of the frequency-domain body component of the Z axis jerk signal.
+ **xbar_t_body_acc_mean_x** denotes the average mean of the time-domain body component of linear acceleration along the X axis.
+ **xbar_f_body_acc_jerk_std_z** denotes the mean standard deviation of the frequency-domain body component of the Z axis jerk signal.
 
-## 5. Summary data set structure
+## 6. Summary data set structure
 
-**Output Files:** 
-* `composite_data.csv`: Full composite data set
-	*10299 observations
-	*69 variables
-* `composite_data_summary_means.csv`: Calculated means by subject and activity of the composite data set.
+**Output File:** 
+* `composite_data_summary_means.csv`: Calculated mean of each variable in the composite data set, for each combination of subject and activity.
 	* 180 observations (30 subjects, 6 activities each)
-	* 69 variables.
-
+	* 69 variables
+ 		* 2 Integer
+   		* 1 Factor
+     	* 66 Numeric (Means calculated from the composite data set, grouped by subject and activity.)
+   
 | Variable | Type | Description |
 | :--- | :--- | :--- |
 | subject | Integer | ID number of the subject (1–30) |
 | activity | Integer | ID number of the activity (1-6) |
 | activity_name | Factor | Name of the activity |
-| t_body_acc_mean_x | Numeric | Average of mean time-domain body component of linear acceleration (X-axis) |
-| t_body_acc_mean_y | Numeric | Average of mean time-domain body component of linear acceleration (Y-axis) |
-| t_body_acc_mean_z | Numeric | Average of mean time-domain body component of linear acceleration (Z-axis) |
-| t_body_acc_std_x | Numeric | Average standard deviation of time-domain body component of linear acceleration (X-axis) |
-| t_body_acc_std_y | Numeric | Average standard deviation of time-domain body component of linear acceleration (Y-axis) |
-| t_body_acc_std_z | Numeric | Average standard deviation of time-domain body component of linear acceleration (Z-axis) |
-| t_gravity_acc_mean_x | Numeric | Average of mean time-domain gravity component of linear acceleration (X-axis) |
-| t_gravity_acc_mean_y | Numeric | Average of mean time-domain gravity component of linear acceleration (Y-axis) |
-| t_gravity_acc_mean_z | Numeric | Average of mean time-domain gravity component of linear acceleration (Z-axis) |
-| t_gravity_acc_std_x | Numeric | Average standard deviation of time-domain gravity component of linear acceleration (X-axis) |
-| t_gravity_acc_std_y | Numeric | Average standard deviation of time-domain gravity component of linear acceleration (Y-axis) |
-| t_gravity_acc_std_z | Numeric | Average standard deviation of time-domain gravity component of linear acceleration (Z-axis) |
-| t_body_acc_jerk_mean_x | Numeric | Average of mean time-domain body component jerk (linear, X-axis) |
-| t_body_acc_jerk_mean_y | Numeric | Average of mean time-domain body component jerk (linear, Y-axis) |
-| t_body_acc_jerk_mean_z | Numeric | Average of mean time-domain body component jerk (linear, Z-axis) |
-| t_body_acc_jerk_std_x | Numeric | Average standard deviation of time-domain body component jerk (linear, X-axis) |
-| t_body_acc_jerk_std_y | Numeric | Average standard deviation of time-domain body component jerk (linear, Y-axis) |
-| t_body_acc_jerk_std_z | Numeric | Average standard deviation of time-domain body component jerk (linear, Z-axis) |
-| t_body_gyro_mean_x | Numeric | Average of mean time-domain body angular velocity (X-axis) |
-| t_body_gyro_mean_y | Numeric | Average of mean time-domain body angular velocity (Y-axis) |
-| t_body_gyro_mean_z | Numeric | Average of mean time-domain body angular velocity (Z-axis) |
-| t_body_gyro_std_x | Numeric | Average standard deviation of time-domain body angular velocity (X-axis) |
-| t_body_gyro_std_y | Numeric | Average standard deviation of time-domain body angular velocity (Y-axis) |
-| t_body_gyro_std_z | Numeric | Average standard deviation of time-domain body angular velocity (Z-axis) |
-| t_body_gyro_jerk_mean_x | Numeric | Average of mean time-domain jerk (gyroscopic, X-axis) |
-| t_body_gyro_jerk_mean_y | Numeric | Average of mean time-domain jerk (gyroscopic, Y-axis) |
-| t_body_gyro_jerk_mean_z | Numeric | Average of mean time-domain jerk (gyroscopic, Z-axis) |
-| t_body_gyro_jerk_std_x | Numeric | Average standard deviation of time-domain jerk (gyroscopic, X-axis) |
-| t_body_gyro_jerk_std_y | Numeric | Average standard deviation of time-domain jerk (gyroscopic, Y-axis) |
-| t_body_gyro_jerk_std_z | Numeric | Average standard deviation of time-domain jerk (gyroscopic, Z-axis) |
-| t_body_acc_mag_mean | Numeric | Average of mean time-domain body component of linear acceleration magnitude |
-| t_body_acc_mag_std | Numeric | Average standard deviation of time-domain body component of linear acceleration magnitude |
-| t_gravity_acc_mag_mean | Numeric | Average of mean time-domain gravity component of linear acceleration magnitude |
-| t_gravity_acc_mag_std | Numeric | Average standard deviation of time-domain gravity component of linear acceleration magnitude |
-| t_body_acc_jerk_mag_mean | Numeric | Average of mean time-domain jerk magnitude (linear) |
-| t_body_acc_jerk_mag_std | Numeric | Average standard deviation of time-domain jerk magnitude (linear) |
-| t_body_gyro_mag_mean | Numeric | Average of mean time-domain body angular velocity |
-| t_body_gyro_mag_std | Numeric | Average standard deviation of time-domain body angular velocity |
-| t_body_gyro_jerk_mag_mean | Numeric | Average of mean time-domain jerk magnitude (gyroscopic) |
-| t_body_gyro_jerk_mag_std | Numeric | Average standard deviation of time-domain jerk magnitude (gyroscopic) |
-| f_body_acc_mean_x | Numeric | Average of mean frequency-domain body component of linear acceleration (X-axis) |
-| f_body_acc_mean_y | Numeric | Average of mean frequency-domain body component of linear acceleration (Y-axis) |
-| f_body_acc_mean_z | Numeric | Average of mean frequency-domain body component of linear acceleration (Z-axis) |
-| f_body_acc_std_x | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (X-axis) |
-| f_body_acc_std_y | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (Y-axis) |
-| f_body_acc_std_z | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (Z-axis) |
-| f_body_acc_jerk_mean_x | Numeric | Average of mean frequency-domain body component of linear acceleration (X-axis) |
-| f_body_acc_jerk_mean_y | Numeric | Average of mean frequency-domain body component of linear acceleration (Y-axis) |
-| f_body_acc_jerk_mean_z | Numeric | Average of mean frequency-domain body component of linear acceleration (Z-axis) |
-| f_body_acc_jerk_std_x | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (X-axis) |
-| f_body_acc_jerk_std_y | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (Y-axis) |
-| f_body_acc_jerk_std_z | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (Z-axis) |
-| f_body_gyro_mean_x | Numeric | Average of mean frequency-domain body angular velocity (X-axis) |
-| f_body_gyro_mean_y | Numeric | Average of mean frequency-domain body angular velocity (Y-axis) |
-| f_body_gyro_mean_z | Numeric | Average of mean frequency-domain body angular velocity (Z-axis) |
-| f_body_gyro_std_x | Numeric | Average standard deviation of time-domain body component of linear acceleration (X-axis) |
-| f_body_gyro_std_y | Numeric | Average standard deviation of time-domain body component of linear acceleration (Y-axis) |
-| f_body_gyro_std_z | Numeric | Average standard deviation of time-domain body component of linear acceleration (Z-axis) |
-| f_body_acc_mag_mean | Numeric | Average of mean frequency-domain body component of linear acceleration magnitude |
-| f_body_acc_mag_std | Numeric | Average standard deviation of time-domain body component of linear acceleration magnitude |
-| f_body_body_acc_jerk_mag_mean | Numeric | Average of mean frequency-domain body component of jerk magnitude (linear) |
-| f_body_body_acc_jerk_mag_std | Numeric | Average standard deviation of frequency-domain body component of jerk magnitude |
-| f_body_body_gyro_mag_mean | Numeric | Average of mean frequency-domain body angular velocity magnitude |
-| f_body_body_gyro_mag_std | Numeric | Average standard deviation of frequency-domain body angular velocity magnitude |
-| f_body_body_gyro_jerk_mag_mean | Numeric | Average of mean frequency-domain body jerk magnitude (gyroscopic) |
-| f_body_body_gyro_jerk_mag_std | Numeric | Average standard deviation of frequency-domain body jerk magnitude (gyroscopic) |
+| xbar_t_body_acc_mean_x | Numeric | Average of mean time-domain body component of linear acceleration (X-axis) |
+| xbar_t_body_acc_mean_y | Numeric | Average of mean time-domain body component of linear acceleration (Y-axis) |
+| xbar_t_body_acc_mean_z | Numeric | Average of mean time-domain body component of linear acceleration (Z-axis) |
+| xbar_t_body_acc_std_x | Numeric | Average standard deviation of time-domain body component of linear acceleration (X-axis) |
+| xbar_t_body_acc_std_y | Numeric | Average standard deviation of time-domain body component of linear acceleration (Y-axis) |
+| xbar_t_body_acc_std_z | Numeric | Average standard deviation of time-domain body component of linear acceleration (Z-axis) |
+| xbar_t_gravity_acc_mean_x | Numeric | Average of mean time-domain gravity component of linear acceleration (X-axis) |
+| xbar_t_gravity_acc_mean_y | Numeric | Average of mean time-domain gravity component of linear acceleration (Y-axis) |
+| xbar_t_gravity_acc_mean_z | Numeric | Average of mean time-domain gravity component of linear acceleration (Z-axis) |
+| xbar_t_gravity_acc_std_x | Numeric | Average standard deviation of time-domain gravity component of linear acceleration (X-axis) |
+| xbar_t_gravity_acc_std_y | Numeric | Average standard deviation of time-domain gravity component of linear acceleration (Y-axis) |
+| xbar_t_gravity_acc_std_z | Numeric | Average standard deviation of time-domain gravity component of linear acceleration (Z-axis) |
+| xbar_t_body_acc_jerk_mean_x | Numeric | Average of mean time-domain body component jerk (linear, X-axis) |
+| xbar_t_body_acc_jerk_mean_y | Numeric | Average of mean time-domain body component jerk (linear, Y-axis) |
+| xbar_t_body_acc_jerk_mean_z | Numeric | Average of mean time-domain body component jerk (linear, Z-axis) |
+| xbar_t_body_acc_jerk_std_x | Numeric | Average standard deviation of time-domain body component jerk (linear, X-axis) |
+| xbar_t_body_acc_jerk_std_y | Numeric | Average standard deviation of time-domain body component jerk (linear, Y-axis) |
+| xbar_t_body_acc_jerk_std_z | Numeric | Average standard deviation of time-domain body component jerk (linear, Z-axis) |
+| xbar_t_body_gyro_mean_x | Numeric | Average of mean time-domain body angular velocity (X-axis) |
+| xbar_t_body_gyro_mean_y | Numeric | Average of mean time-domain body angular velocity (Y-axis) |
+| xbar_t_body_gyro_mean_z | Numeric | Average of mean time-domain body angular velocity (Z-axis) |
+| xbar_t_body_gyro_std_x | Numeric | Average standard deviation of time-domain body angular velocity (X-axis) |
+| xbar_t_body_gyro_std_y | Numeric | Average standard deviation of time-domain body angular velocity (Y-axis) |
+| xbar_t_body_gyro_std_z | Numeric | Average standard deviation of time-domain body angular velocity (Z-axis) |
+| xbar_t_body_gyro_jerk_mean_x | Numeric | Average of mean time-domain jerk (gyroscopic, X-axis) |
+| xbar_t_body_gyro_jerk_mean_y | Numeric | Average of mean time-domain jerk (gyroscopic, Y-axis) |
+| xbar_t_body_gyro_jerk_mean_z | Numeric | Average of mean time-domain jerk (gyroscopic, Z-axis) |
+| xbar_t_body_gyro_jerk_std_x | Numeric | Average standard deviation of time-domain jerk (gyroscopic, X-axis) |
+| xbar_t_body_gyro_jerk_std_y | Numeric | Average standard deviation of time-domain jerk (gyroscopic, Y-axis) |
+| xbar_t_body_gyro_jerk_std_z | Numeric | Average standard deviation of time-domain jerk (gyroscopic, Z-axis) |
+| xbar_t_body_acc_mag_mean | Numeric | Average of mean time-domain body component of linear acceleration magnitude |
+| xbar_t_body_acc_mag_std | Numeric | Average standard deviation of time-domain body component of linear acceleration magnitude |
+| xbar_t_gravity_acc_mag_mean | Numeric | Average of mean time-domain gravity component of linear acceleration magnitude |
+| xbar_t_gravity_acc_mag_std | Numeric | Average standard deviation of time-domain gravity component of linear acceleration magnitude |
+| xbar_t_body_acc_jerk_mag_mean | Numeric | Average of mean time-domain jerk magnitude (linear) |
+| xbar_t_body_acc_jerk_mag_std | Numeric | Average standard deviation of time-domain jerk magnitude (linear) |
+| xbar_t_body_gyro_mag_mean | Numeric | Average of mean time-domain body angular velocity |
+| xbar_t_body_gyro_mag_std | Numeric | Average standard deviation of time-domain body angular velocity |
+| xbar_t_body_gyro_jerk_mag_mean | Numeric | Average of mean time-domain jerk magnitude (gyroscopic) |
+| xbar_t_body_gyro_jerk_mag_std | Numeric | Average standard deviation of time-domain jerk magnitude (gyroscopic) |
+| xbar_f_body_acc_mean_x | Numeric | Average of mean frequency-domain body component of linear acceleration (X-axis) |
+| xbar_f_body_acc_mean_y | Numeric | Average of mean frequency-domain body component of linear acceleration (Y-axis) |
+| xbar_f_body_acc_mean_z | Numeric | Average of mean frequency-domain body component of linear acceleration (Z-axis) |
+| xbar_f_body_acc_std_x | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (X-axis) |
+| xbar_f_body_acc_std_y | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (Y-axis) |
+| xbar_f_body_acc_std_z | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (Z-axis) |
+| xbar_f_body_acc_jerk_mean_x | Numeric | Average of mean frequency-domain body component of linear acceleration (X-axis) |
+| xbar_f_body_acc_jerk_mean_y | Numeric | Average of mean frequency-domain body component of linear acceleration (Y-axis) |
+| xbar_f_body_acc_jerk_mean_z | Numeric | Average of mean frequency-domain body component of linear acceleration (Z-axis) |
+| xbar_f_body_acc_jerk_std_x | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (X-axis) |
+| xbar_f_body_acc_jerk_std_y | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (Y-axis) |
+| xbar_f_body_acc_jerk_std_z | Numeric | Average standard deviation of frequency-domain body component of linear acceleration (Z-axis) |
+| xbar_f_body_gyro_mean_x | Numeric | Average of mean frequency-domain body angular velocity (X-axis) |
+| xbar_f_body_gyro_mean_y | Numeric | Average of mean frequency-domain body angular velocity (Y-axis) |
+| xbar_f_body_gyro_mean_z | Numeric | Average of mean frequency-domain body angular velocity (Z-axis) |
+| xbar_f_body_gyro_std_x | Numeric | Average standard deviation of time-domain body component of linear acceleration (X-axis) |
+| xbar_f_body_gyro_std_y | Numeric | Average standard deviation of time-domain body component of linear acceleration (Y-axis) |
+| xbar_f_body_gyro_std_z | Numeric | Average standard deviation of time-domain body component of linear acceleration (Z-axis) |
+| xbar_f_body_acc_mag_mean | Numeric | Average of mean frequency-domain body component of linear acceleration magnitude |
+| xbar_f_body_acc_mag_std | Numeric | Average standard deviation of time-domain body component of linear acceleration magnitude |
+| xbar_f_body_body_acc_jerk_mag_mean | Numeric | Average of mean frequency-domain body component of jerk magnitude (linear) |
+| xbar_f_body_body_acc_jerk_mag_std | Numeric | Average standard deviation of frequency-domain body component of jerk magnitude |
+| xbar_f_body_body_gyro_mag_mean | Numeric | Average of mean frequency-domain body angular velocity magnitude |
+| xbar_f_body_body_gyro_mag_std | Numeric | Average standard deviation of frequency-domain body angular velocity magnitude |
+| xbar_f_body_body_gyro_jerk_mag_mean | Numeric | Average of mean frequency-domain body jerk magnitude (gyroscopic) |
+| xbar_f_body_body_gyro_jerk_mag_std | Numeric | Average standard deviation of frequency-domain body jerk magnitude (gyroscopic) |
 
 ---
 
 ## 6. Reproducing this data set
 1. Download the [Project data set archive](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
 2. Extract the archive into your working directory, maintaining the archive's directory structure.
-3. Ensure `run_analysis.R` is in the same directory and execute the program.
-4. The program output will be written to your working directory:
-	1. `composite_data.csv` (approximately 8104 kB)
+3. Ensure `run_analysis.R` is in the working directory and execute the program.
+4. The program output will be written to your data set directory:
+	1. `composite_data.csv` (approximately 8104 kB) *(Optional, see comments in program and README.)*
 	2. `composite_data_summary_means.csv` (approximately 220 kB)
