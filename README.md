@@ -85,8 +85,9 @@ arrangement by subject and activity, and puts the activity_name column on the fa
 4. Therefore we will:
 	1. Relocate the activity_name column. 
 	2. Rearrange the dataframe by subject and activity.
-	3. Clean up the column names using `janitor::clean_names()` for systematic, yet human-readable, variable names.
-    4. Variable names are descriptive, yet remain abbreviated for ease of use. The naming convention is explained in the accompanying code book.
+	3. Clean up the column names using `janitor::clean_names()` to remove camel case and parentheses, replace hyphens with underscores, and break up names for better readability. The use of this function eliminates the need for multiple `gsub()` expressions.
+	4. Prefix the columns containing summary means with "xbar_" to indicate that these are means of the column variables.
+    5. Variable names remain abbreviated, but are now obviously descriptive and easier to read. The naming convention is explained in the accompanying code book.
        
 	**This satisfies point 4 of the brief.**
 
